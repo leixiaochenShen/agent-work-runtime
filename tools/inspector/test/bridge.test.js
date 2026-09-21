@@ -225,8 +225,6 @@ test('search 拒绝控制字符', async () => {
 });
 
 test('--project 含空格的路径正常工作', async () => {
-  // 评审指出：shell: true 下参数拼接会把空格路径拆成多个参数。
-  // shell: false 下参数是数组传递，不受空格影响。
   const argvLog = path.join(os.tmpdir(), `argv-space-${Date.now()}.log`);
   const spaceDir = path.join(os.tmpdir(), 'project with spaces');
   fs.mkdirSync(spaceDir, { recursive: true });
@@ -236,7 +234,6 @@ test('--project 含空格的路径正常工作', async () => {
       await fetch(`${b.base}/api/status`, { headers: GUARD });
       const lines = fs.readFileSync(argvLog, 'utf8').trim().split('\n').map(JSON.parse);
       const call = lines.find((a) => a.includes('status'));
-      // --project 后面应该是完整的路径（含空格），不应该被拆开
       const projectIdx = call.indexOf('--project');
       const projectValue = call[projectIdx + 1];
       assert.ok(projectValue.includes('project with spaces'),
@@ -251,7 +248,6 @@ test('--project 含空格的路径正常工作', async () => {
 });
 
 test('search 文本含 shell 元字符不会被解释', async () => {
-  // 评审指出：shell: true 下 & | ^ > 等元字符会被 shell 解释。
   const argvLog = path.join(os.tmpdir(), `argv-meta-${Date.now()}.log`);
   const b = await startBridge({ env: { STUB_ARGV_OUT: argvLog } });
   try {
@@ -262,7 +258,6 @@ test('search 文本含 shell 元字符不会被解释', async () => {
     const body = await res.json();
     assert.equal(body.ok, true, JSON.stringify(body));
     assert.equal(body.data.query.text, text);
-    // 确认参数原样传递，没有被 shell 截断
     const lines = fs.readFileSync(argvLog, 'utf8').trim().split('\n').map(JSON.parse);
     const call = lines.find((a) => a.includes('search'));
     assert.ok(call.includes(text), `元字符搜索词未原样传递: ${JSON.stringify(call)}`);
