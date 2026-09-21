@@ -1,0 +1,53 @@
+[package]
+name = "awr-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "awr"
+path = "src/main.rs"
+
+[dependencies]
+awr-core.workspace = true
+awr-store.workspace = true
+awr-source.workspace = true
+awr-runtime.workspace = true
+awr-context.workspace = true
+awr-workspace.workspace = true
+awr-team = { path = "../awr-team" }
+toml.workspace = true
+clap.workspace = true
+serde_json.workspace = true
+serde.workspace = true
+serde_yaml_ng.workspace = true
+sha2.workspace = true
+cap-std.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61.2", features = ["Win32_Foundation", "Win32_Storage_FileSystem"] }
+
+[dev-dependencies]
+rusqlite.workspace = true
+
+[[test]]
+name = "security_write"
+path = "../../tests/security/paths/write_cli.rs"
+
+[[test]]
+name = "security_source_bounds"
+path = "../../tests/security/payloads/source_cli.rs"
+
+[[test]]
+name = "security_artifact_bounds"
+path = "../../tests/security/payloads/artifact_cli.rs"
+
+[[test]]
+name = "doctor_recovery"
+path = "../../tests/recovery/doctor/database.rs"
+
+[[test]]
+name = "workspace_exchange"
+path = "../../tests/workspace/exchange_cli.rs"

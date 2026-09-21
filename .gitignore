@@ -1,0 +1,63 @@
+# Rust build output
+/target/
+
+# Project-local development and verification output
+/.venv/
+/.local/
+__pycache__/
+*.pyc
+.DS_Store
+
+# AWR local runtime state is never a shared source of truth
+.awr/state.db
+.awr/state.db-*
+.awr/artifacts/
+.awr/mutations/
+.awr/cache/
+
+# Local credentials; examples must use synthetic values
+.env
+.env.*
+!.env.example
+
+# The per-machine workspace exchange config, its credentials and its state.
+# The committed template is examples/workspace/remote_workspace.toml.example.
+remote_workspace.toml
+.awr/workspace-credentials.json
+.awr/workspace.json
+.awr/team-remotes/
+
+# Internal development material stays local, including the project's own AWR mapping.
+/ledger/
+/contracts/
+/.awr/
+/docs/GOALS.md
+/docs/PLAN.md
+/docs/RULES.md
+/docs/KICKOFF.md
+/docs/design/
+/docs/decisions/
+/docs/acceptance/
+/docs/benchmarks/compact-recovery.md
+/docs/benchmarks/context.md
+/docs/benchmarks/large-ledger.md
+/docs/benchmarks/performance.md
+/scripts/check_ledger.py
+
+# Conventional local planning and handoff locations
+/work-ledger.yaml
+/LEDGER.md
+/GOALS.md
+/PLAN.md
+/KICKOFF.md
+/RULES.md
+/internal/
+/planning/
+/notes/
+/records/
+/evidence/
+/handoffs/
+
+# Superseded local preview promotion records
+/docs/release/preview-*.json
+/scripts/release/select_candidate.py

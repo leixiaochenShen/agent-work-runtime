@@ -1,0 +1,2 @@
+# Public Python fixture checks
+PyYAML==6.0.3
